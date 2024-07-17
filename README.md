@@ -13,7 +13,7 @@ To facilitate the incorporation of attributes into text embeddings and the align
 Our experiments demonstrate that CoAPT leads to considerable improvements for existing baseline methods on several few/zero-shot image classification tasks, including base-to-novel generalization, cross-dataset transfer, and domain generalization. 
 Our findings highlight the importance of combining hard and soft prompts and pave the way for future research on the interplay between text and image latent spaces in pre-trained models.
 
-![Framework](examples/framework.png)
+![Framework](figs/framework.png)
 
 ----
 
@@ -27,23 +27,23 @@ Our findings highlight the importance of combining hard and soft prompts and pav
 
 # Flexibility and Effectiveness
 
-Our CoAPT is orthogonal to both prompt tuning and adapter tuning approaches, therefore can be used as a plugin to improve all of them.
+Our CoAPT model utilizes the entire text encoder input and integrates an additional meta-network, resulting in considerable performance improvements.
 
 <div align="center">
-  <img src="examples/performance.png" width="40%" />
+  <img src="figs/motivation.png" width="40%" />
 </div>
 
 **Base-to-New Generalization Performance**
 
-![Base-to-New Generalization](examples/base_to_new_performance.png)
+![Base-to-New Generalization](figs/base_to_novel.png)
 
 **Cross-Dataset Transfer Performance**
 
-![Cross-Dataset Transfer](examples/cross_dataset_performance.png)
+![Cross-Dataset Transfer](figs/cross-dataset.png)
 
 **Domain Generalization Performance**
 
-![Domain Generalization](examples/domain_performance.png)
+![Domain Generalization](figs/domain.png)
 
 # Installation
 
