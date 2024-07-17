@@ -37,10 +37,13 @@ Our CoAPT is orthogonal to both prompt tuning and adapter tuning approaches, the
 
 ![Base-to-New Generalization](examples/base_to_new_performance.png)
 
-**Cross-Dataset Generalization Performance**
+**Cross-Dataset Transfer Performance**
 
-![Cross-Dataset Generalization](examples/cross_dataset_performance.png)
+![Cross-Dataset Transfer](examples/cross_dataset_performance.png)
 
+**Domain Generalization Performance**
+
+![Domain Generalization](examples/domain_performance.png)
 
 # Installation
 
@@ -70,7 +73,7 @@ pip install -r requirements.txt
 python setup.py develop
 ```
 
-**Install DePT**
+**Install CoAPT**
 
 ```
 cd ..
