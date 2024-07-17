@@ -79,7 +79,7 @@ def extend_cfg(cfg):
     cfg.TRAIN.CHECKPOINT_FREQ = -1
 
     # modules which need to update
-    cfg.TRAINER.NAMES_TO_UPDATE = ['prompt_learner', 'linear_probe', 'film']
+    cfg.TRAINER.NAMES_TO_UPDATE = ['prompt_learner', 'linear_probe', 'film', 'VPT', 'adapter']
 
     # linear classifier settings
     cfg.TRAINER.LINEAR_PROBE = CN()
@@ -90,6 +90,13 @@ def extend_cfg(cfg):
     # cwT module settings
     cfg.TRAINER.FILM = CN()
     cfg.TRAINER.FILM.LINEAR_PROBE = True
+
+    # Linear Probe Head settings
+    cfg.TRAINER.LINEAR_PROBE = CN()
+    cfg.TRAINER.LINEAR_PROBE.TYPE = 'linear'
+    cfg.TRAINER.LINEAR_PROBE.CLS_WEIGHT = 0.7
+    cfg.TRAINER.LINEAR_PROBE.WEIGHT = 0.7
+    cfg.TRAINER.LINEAR_PROBE.TEST_TIME_FUSION = True
 
     # CoOp settings
     cfg.TRAINER.COOP = CN()
@@ -114,6 +121,25 @@ def extend_cfg(cfg):
     cfg.TRAINER.MAPLE.PREC = "fp16"  # fp16, fp32, amp
     cfg.TRAINER.MAPLE.PROMPT_DEPTH = 9 # Max 12, minimum 0, for 1 it will act as shallow MaPLe (J=1)
 
+    # Config for PromptSRC
+    cfg.TRAINER.PROMPTSRC = CN()
+    cfg.TRAINER.PROMPTSRC.N_CTX_VISION = 4  # number of context vectors at the vision branch
+    cfg.TRAINER.PROMPTSRC.N_CTX_TEXT = 4  # number of context vectors at the language branch
+    cfg.TRAINER.PROMPTSRC.CTX_INIT = "a photo of a"  # initialization words
+    cfg.TRAINER.PROMPTSRC.PREC = "fp16"  # fp16, fp32, amp
+    cfg.TRAINER.PROMPTSRC.PROMPT_DEPTH_VISION = 9  # Max 12, minimum 0, for 0 it will be using shallow IVLP prompting (J=1)
+    cfg.TRAINER.PROMPTSRC.PROMPT_DEPTH_TEXT = 9  # Max 12, minimum 0, for 0 it will be using shallow IVLP prompting (J=1)
+    cfg.TRAINER.PROMPTSRC.TEXT_LOSS_WEIGHT = 25
+    cfg.TRAINER.PROMPTSRC.IMAGE_LOSS_WEIGHT = 10
+    cfg.TRAINER.PROMPTSRC.GPA_MEAN = 15
+    cfg.TRAINER.PROMPTSRC.GPA_STD = 1
+    
+    # CoAPT settings
+    cfg.NUM_A = 0
+    cfg.VOCAB = "None"
+    cfg.layer1 = 0
+    cfg.layer2 = 0
+    cfg.layer3 = 0
 
 def setup_cfg(args):
     cfg = get_cfg_default()

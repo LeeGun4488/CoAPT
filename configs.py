@@ -4,9 +4,10 @@ import copy
 base = dict(
     # dataset configs
     data = dict(
-        root='root of datasets here',
-        datasets_base_to_new=['dtd', 'caltech101', 'eurosat', 'ucf101', 'oxford_flowers', 
-                              'oxford_pets', 'stanford_cars', 'fgvc_aircraft', 'food101', 'sun397', 'imagenet'],
+        root='/workspace/dataset',
+        datasets_base_to_new=['oxford_flowers'],
+        # datasets_base_to_new=['dtd', 'caltech101', 'eurosat', 'ucf101', 'oxford_flowers', 
+                            #   'oxford_pets', 'stanford_cars', 'fgvc_aircraft', 'food101', 'sun397'],
         datasets_cross_dataset=['caltech101', 'oxford_pets', 'stanford_cars', 'oxford_flowers', 'food101',
                                 'fgvc_aircraft', 'sun397', 'dtd', 'eurosat', 'ucf101',
                                 'imagenetv2', 'imagenet_sketch', 'imagenet_a', 'imagenet_r'],
@@ -120,90 +121,218 @@ maple = dict(
     ),
 )
 
-coop_dept = dict(
+promptsrc = dict(
     gpu_ids = [0],
     mode='b2n',
     
     train = dict(
-        trainer='ExtrasLinearProbeCoOp',      
+        trainer='PromptSRC',              
+        cfg='vit_b16_c2_ep20_batch4_4+4ctx', 
+        seeds=[1, 2, 3],             
+        loadep=-1,                   
+        shots=16,                   
+        opts=[],      
+    ),
+    
+    grid_search = dict(enable=False),
+    
+    output = dict(
+        root='outputs/promptsrc',  
+        result='results/promptsrc',
+        remove_dirs=['root'],       
+    ),
+)
+
+dept = dict(
+    gpu_ids = [0],
+    mode='b2n',
+    
+    train = dict(
+        trainer='DePT',              
+        cfg='vit_b16_c2_ep20_batch4_4+4ctx', 
+        seeds=[1, 2, 3],             
+        loadep=-1,                   
+        shots=16,                   
+        opts=['TRAINER.LINEAR_PROBE.WEIGHT', 0.7,
+              'TRAINER.LINEAR_PROBE.CLS_WEIGHT', 0.6,
+              'OPTIM.LR_EXP', 6.0],      
+        # opts=['TRAINER.LINEAR_PROBE.WEIGHT', 0.5,
+        #       'TRAINER.LINEAR_PROBE.CLS_WEIGHT', 0.8,
+        #       'OPTIM.LR_EXP', 4.0],
+    ),
+    
+    grid_search = dict(enable=False),
+    
+    output = dict(
+        root='outputs/dept',  
+        result='results/dept',
+        remove_dirs=['root'],       
+    ),
+)
+
+coop_coapt = dict(
+    gpu_ids = [0],
+    mode='b2n',
+    
+    train = dict(
+        trainer='CoOp_CoAPT',      
         cfg='vit_b16_ep10_bs4_lr35',
         seeds=[1, 2, 3],    
         loadep=-1,         
         shots=16,   
-        opts=[],    
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '256',
+              'layer3', '2048'
+              ],    
     ),
     
     grid_search = dict(enable=False),
     
     output = dict(
-        root='outputs/coop_dept',   
-        result='results/coop_dept', 
+        root='outputs/coop_coapt',   
+        result='results/coop_coapt', 
         remove_dirs=['root'],  
     ),
 )
 
-cocoop_dept = dict(
+cocoop_coapt = dict(
     gpu_ids = [0],
     mode='b2n',
     
     train = dict(
-        trainer='ExtrasLinearProbeCoCoOp',              
+        trainer='CoCoOp_CoAPT',              
         cfg='vit_b16_c4_ep10_batch1_ctxv1', 
         seeds=[1, 2, 3],             
         loadep=-1,                   
         shots=16,                   
-        opts=[],      
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '256',
+              'layer3', '512'
+              ],       
     ),
     
     grid_search = dict(enable=False),
     
     output = dict(
-        root='outputs/cocoop_dept',  
-        result='results/cocoop_dept',
+        root='outputs/cocoop_coapt',  
+        result='results/cocoop_coapt',
         remove_dirs=['root'],       
     ),
 )
 
-kgcoop_dept = dict(
+kgcoop_coapt = dict(
     gpu_ids = [0],
     mode='b2n',
     
     train = dict(
-        trainer='ExtrasLinearProbeKgCoOp',              
+        trainer='KgCoOp_CoAPT',              
         cfg='vit_b16_ep10_ctxv1_bs4_lr35', 
         seeds=[1, 2, 3],             
         loadep=-1,                   
         shots=16,                   
-        opts=[],      
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '2048',
+              'layer3', '128'
+              ],       
     ),
     
     grid_search = dict(enable=False),
     
     output = dict(
-        root='outputs/kgcoop_dept',  
-        result='results/kgcoop_dept',
+        root='outputs/kgcoop_coapt',  
+        result='results/kgcoop_coapt',
         remove_dirs=['root'],       
     ),
 )
 
-maple_dept = dict(
+maple_coapt = dict(
     gpu_ids = [0],
     mode='b2n',
     
     train = dict(
-        trainer='ExtrasLinearProbeMaPLe',              
+        trainer='MaPLe_CoAPT',              
         cfg='vit_b16_c2_ep10_batch4_2ctx', 
-        seeds=[1, 2, 3],             
+        seeds=[0],             
         loadep=-1,                   
         shots=16,                   
-        opts=[],      
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '128',
+              'layer3', '256'
+              ],         
     ),
     
     grid_search = dict(enable=False),
     
     output = dict(
-        root='outputs/maple_dept',  
-        result='results/maple_dept',
+        root='outputs/maple_coapt',  
+        result='results/maple_coapt',
+        remove_dirs=['root'],       
+    ),
+)
+
+promptsrc_coapt = dict(
+    gpu_ids = [0],
+    mode='b2n',
+    
+    train = dict(
+        trainer='PromptSRC_CoAPT',              
+        cfg='vit_b16_c2_ep20_batch4_4+4ctx', 
+        seeds=[1, 2, 3],             
+        loadep=-1,                   
+        shots=16,                   
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '128',
+              'layer3', '256'
+              ],       
+    ),
+    
+    grid_search = dict(enable=False),
+    
+    output = dict(
+        root='outputs/promptsrc_coapt',  
+        result='results/promptsrc_coapt',
+        remove_dirs=['root'],       
+    ),
+)
+
+dept_coapt = dict(
+    gpu_ids = [0],
+    mode='b2n',
+    
+    train = dict(
+        trainer='DePT_CoAPT',              
+        cfg='vit_b16_c2_ep20_batch4_4+4ctx', 
+        seeds=[1, 2, 3],             
+        loadep=-1,                   
+        shots=16,
+        opts=['NUM_A', '32',
+              'VOCAB', 'gpt-L',
+              'layer1', '128',
+              'layer2', '512',
+              'layer3', '64',                   
+              'TRAINER.LINEAR_PROBE.WEIGHT', 0.7,
+              'TRAINER.LINEAR_PROBE.CLS_WEIGHT', 0.6,
+              'OPTIM.LR_EXP', 6.0],      
+            #   'TRAINER.LINEAR_PROBE.WEIGHT', 0.5,
+            #   'TRAINER.LINEAR_PROBE.CLS_WEIGHT', 0.8,
+            #   'OPTIM.LR_EXP', 4.0],
+    ),
+    
+    grid_search = dict(enable=False),
+    
+    output = dict(
+        root='outputs/dept_coapt',  
+        result='results/dept_coapt',
         remove_dirs=['root'],       
     ),
 )

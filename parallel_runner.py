@@ -12,7 +12,7 @@ from utils.result_parser import ResultParser
 
 from configs import get_config
 from templates import get_command
-
+os.environ["MKL_THREADING_LAYER"] = "GNU"
 
 class ParallelRunner(object):
     def __init__(self, cfg):
