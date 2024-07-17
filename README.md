@@ -12,7 +12,7 @@ Setup conda environment (recommended).
 **Create a conda environment**
 
 ```
-conda create -y -n dept python=3.8
+conda create -y -n coapt python=3.8
 conda activate dept
 ```
 
@@ -36,7 +36,7 @@ python setup.py develop
 ```
 cd ..
 
-git clone https://github.com/somebody/DePT.git
+git clone https://github.com/leegun4488/coapt.git
 cd DePT/
 
 pip install -r requirements.txt
@@ -53,26 +53,34 @@ Please follow the instructions at [DATASETS.md](datasets/DATASETS.md) to prepare
 
 # Training and Evaluation
 
-We provide parallel running script `parallel_runner.py` for each prompting variant including CoOp (w/ DePT), CoCoOp (w/ DePT), KgCoOp (w/ DePT), MaPLe (w/ DePT). Make sure to configure the dataset paths in environment variable DATA and run the commands from the main directory.
+We provide parallel running script `parallel_runner.py` for each prompting variant including CoOp (w/ CoAPT), CoCoOp (w/ CoAPT), KgCoOp (w/ CoAPT), MaPLe (w/ CoAPT), PromptSRC (w/ CoAPT), DePT (w/ CoAPT). Make sure to configure the dataset paths in environment variable DATA and run the commands from the main directory.
 
 **Base to New Generalization**
 
 ```
-# Running CoOp (w/ DePT)
+# Running CoOp (w/ CoAPT)
 python parallel_runner.py --cfg coop
-python parallel_runner.py --cfg coop_dept
+python parallel_runner.py --cfg coop_coapt
 
-# Running CoCoOp (w/ DePT)
+# Running CoCoOp (w/ CoAPT)
 python parallel_runner.py --cfg cocoop
-python parallel_runner.py --cfg cocoop_dept
+python parallel_runner.py --cfg cocoop_coapt
 
-# Running KgCoOp (w/ DePT)
+# Running KgCoOp (w/ CoAPT)
 python parallel_runner.py --cfg kgcoop
-python parallel_runner.py --cfg kgcoop_dept
+python parallel_runner.py --cfg kgcoop_coapt
 
-# Running MaPLe (w/ DePT)
+# Running MaPLe (w/ CoAPT)
 python parallel_runner.py --cfg maple
-python parallel_runner.py --cfg maple_dept
+python parallel_runner.py --cfg maple_coapt
+
+# Running PromptSRC (w/ CoAPT)
+python parallel_runner.py --cfg promptsrc
+python parallel_runner.py --cfg promptsrc_coapt
+
+# Running DePT (w/ CoAPT)
+python parallel_runner.py --cfg dept
+python parallel_runner.py --cfg dept_coapt
 ```
 
 After running, the output will be in the `outputs/` directory, the results will be tallied in the `results/` directory as csv, and a mail will be sent to email address.
