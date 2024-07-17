@@ -30,12 +30,12 @@ Our findings highlight the importance of combining hard and soft prompts and pav
 Our CoAPT model utilizes the entire text encoder input and integrates an additional meta-network, resulting in considerable performance improvements.
 
 <div align="center">
-  <img src="figs/motivation.png" width="40%" />
+  <img src="figs/motivation.png" width="100%" />
 </div>
 
 **Base-to-New Generalization Performance**
 
-![Base-to-New Generalization](figs/base_to_novel.png)
+![Base-to-New Generalization](figs/base-to-novel.png)
 
 **Cross-Dataset Transfer Performance**
 
