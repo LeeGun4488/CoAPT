@@ -57,7 +57,7 @@ Setup conda environment (recommended).
 
 ```
 conda create -y -n coapt python=3.8
-conda activate dept
+conda activate coapt
 ```
 
 **Install torch (requires version >= 1.8.1) and torchvision**
@@ -81,7 +81,7 @@ python setup.py develop
 cd ..
 
 git clone https://github.com/leegun4488/coapt.git
-cd DePT/
+cd CoAPT/
 
 pip install -r requirements.txt
 pip install setuptools==59.5.0
