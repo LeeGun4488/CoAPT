@@ -43,7 +43,9 @@ Our CoAPT model utilizes the entire text encoder input and integrates an additio
 
 **Domain Generalization Performance**
 
-![Domain Generalization](figs/domain.png)
+<div align="center">
+  <img src="figs/domain.png" width="100%" />
+</div>
 
 # Installation
 
