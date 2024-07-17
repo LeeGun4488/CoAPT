@@ -3,6 +3,45 @@ CoAPT
 
 ----
 
+# Highlights
+
+> **Abstract** We propose a novel prompt tuning method called CoAPT (Context Attribute words in Prompt Tuning) for few/zero-shot image classification. 
+The core motivation is that attributes are descriptive words with rich information about a given concept.
+Thus, we aim to enrich text queries of existing prompt tuning methods, improving alignment between text and image embeddings in CLIP embedding space.
+To do so, CoAPT integrates attribute words as additional prompts within learnable prompt tuning and can be easily incorporated into various existing prompt tuning methods.
+To facilitate the incorporation of attributes into text embeddings and the alignment with image embeddings, soft prompts are trained together with an additional meta-network that generates input-image-wise feature biases from the concatenated feature encodings of the image-text combined queries.
+Our experiments demonstrate that CoAPT leads to considerable improvements for existing baseline methods on several few/zero-shot image classification tasks, including base-to-novel generalization, cross-dataset transfer, and domain generalization. 
+Our findings highlight the importance of combining hard and soft prompts and pave the way for future research on the interplay between text and image latent spaces in pre-trained models.
+
+![Framework](examples/framework.png)
+
+----
+
+# Main Contributions
+
+> 1. CoAPT is simple, easy to implement, and can be integrated with many existing prompt tuning methods.
+> 2. CoAPT demonstrates consistent empirical improvement upon baselines across base-to-novel generalization, cross-dataset evaluation and domain generalization tasks.
+> 3. We present comprehensive ablative evaluations and analysis of different variations of CoAPT, with emphasis on the process and configurations for generating relevant hard prompts.
+
+----
+
+# Flexibility and Effectiveness
+
+Our CoAPT is orthogonal to both prompt tuning and adapter tuning approaches, therefore can be used as a plugin to improve all of them.
+
+<div align="center">
+  <img src="examples/performance.png" width="40%" />
+</div>
+
+**Base-to-New Generalization Performance**
+
+![Base-to-New Generalization](examples/base_to_new_performance.png)
+
+**Cross-Dataset Generalization Performance**
+
+![Cross-Dataset Generalization](examples/cross_dataset_performance.png)
+
+
 # Installation
 
 This codebase is tested on Ubuntu 20.04.2 LTS with python 3.8. Follow the below steps to create environment and install dependencies.
