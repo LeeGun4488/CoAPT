@@ -25,7 +25,7 @@ Our findings highlight the importance of combining hard and soft prompts and pav
 
 ----
 
-# Flexibility and Effectiveness
+# Compare Performance
 
 Our CoAPT model utilizes the entire text encoder input and integrates an additional meta-network, resulting in considerable performance improvements.
 
